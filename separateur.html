@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Séparateur</title>
+<style>
+  /* ============================================================
+     RÉGLAGES COMMUNS — toute modification ici s'applique
+     à tous les séparateurs de tous les cours Moodle.
+     ============================================================ */
+  :root {
+    --police: Georgia, "Times New Roman", serif;
+    --taille-texte: 22px;
+    --taille-gif: 50px;
+    --epaisseur-ligne: 3px;
+    --ecart: 14px;
+  }
+
+  html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+  .sep {
+    display: flex; align-items: center; gap: var(--ecart);
+    height: calc(var(--taille-gif) + 12px); padding: 0 2px; box-sizing: border-box;
+  }
+  .ligne { flex: 1; min-width: 20px; height: var(--epaisseur-ligne); background: var(--couleur); border-radius: 2px; }
+  .sep img { width: var(--taille-gif); height: var(--taille-gif); border-radius: 50%; flex: none; }
+  .sep span {
+    font-family: var(--police); font-size: var(--taille-texte); font-weight: bold;
+    color: var(--couleur); white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<div class="sep" id="sep">
+  <div class="ligne"></div>
+  <img id="gif" alt="">
+  <span id="texte"></span>
+  <div class="ligne"></div>
+</div>
+
+<script>
+  /* ============================================================
+     LES 4 SÉPARATEURS — texte, couleur et GIF de chaque phase.
+     Le lien Moodle choisit la phase : separateur.html?p=decouvre
+     ============================================================ */
+  const PHASES = {
+    decouvre: { texte: "Je découvre", couleur: "#C46A12", gif: "gif/jedecouvre.gif" },
+    apprends: { texte: "J'apprends",  couleur: "#1F4E79", gif: "gif/japprends.gif" },
+    teste:    { texte: "Je me teste", couleur: "#6B3FA0", gif: "gif/jemeteste.gif" },
+    applique: { texte: "J'applique",  couleur: "#2E7D4F", gif: "gif/japplique.gif" }
+  };
+
+  const cle = new URLSearchParams(location.search).get("p");
+  const phase = PHASES[cle] || PHASES.decouvre;
+  document.getElementById("sep").style.setProperty("--couleur", phase.couleur);
+  document.getElementById("texte").textContent = phase.texte;
+  document.getElementById("gif").src = phase.gif;
+  document.title = phase.texte;
+</script>
+</body>
+</html>
